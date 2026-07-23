@@ -19,7 +19,7 @@ const authUser = async () => {
       userStore.userID = userData.record.id;
       userStore.username = userData.record.profile?.username || '';
       userStore.userProfileID = userData.record.profile?.id || '';
-      router.push({ path: '/dashboard' });
+      router.push({ path: '/' });
     }
   } catch (error) {
     console.error('Authentication error:', error);

@@ -10,16 +10,15 @@ const router = createRouter({
       component: () => import('../views/HomeView.vue')
     },
     {
-      path: '/dashboard',
-      name: 'dashboard',
-      meta: { requiresAuth: true },
-      component: () => import('../views/DashboardView.vue')
+      path: '/auth',
+      name: 'auth',
+      component: () => import('../views/AuthView.vue')
     },
     {
-      path: '/feed',
-      name: 'feed',
+      path: '/new-post',
+      name: 'new-post',
       meta: { requiresAuth: true },
-      component: () => import('../views/FeedView.vue')
+      component: () => import('../views/NewPostView.vue')
     }
   ]
 });
@@ -27,7 +26,7 @@ const router = createRouter({
 router.beforeEach((to) => {
   if (to.meta.requiresAuth && !client?.authStore.token) {
     return {
-      path: '/'
+      path: '/auth'
     };
   }
 });

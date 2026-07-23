@@ -30,14 +30,19 @@ const logoutUser = () => {
     </div>
     <div class="hidden items-center text-xl font-medium lg:relative lg:flex lg:flex-grow">
       <ul class="ml-auto flex flex-row list-none">
-        <li v-if="$pb?.authStore.token" class="pr-5">
-          <RouterLink to="/feed" class="hover:underline">
-            Feed
+        <li class="pr-5">
+          <RouterLink to="/" class="hover:underline">
+            Home
+          </RouterLink>
+        </li>
+        <li v-if="!$pb?.authStore.token" class="pr-5">
+          <RouterLink to="/auth" class="hover:underline">
+            Login
           </RouterLink>
         </li>
         <li v-if="$pb?.authStore.token" class="pr-5">
-          <RouterLink to="/dashboard" class="hover:underline">
-            Dashboard
+          <RouterLink to="/new-post" class="hover:underline">
+            New Post
           </RouterLink>
         </li>
         <li v-if="$pb?.authStore.token" class="pr-5">

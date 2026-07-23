@@ -31,7 +31,7 @@ onMounted(() => {
 
 <template>
   <div>
-    <h1 class="mb-3 text-2xl font-bold">Dashboard</h1>
+    <h1 class="mb-3 text-2xl font-bold">New Post & My Posts</h1>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <div>
         <div v-for="post in posts" :key="post.id">
