@@ -12,6 +12,15 @@ const emit = defineEmits<{
 
 const title = ref('');
 const content = ref('');
+const file = ref<File | null>(null);
+const fileInput = ref<HTMLInputElement | null>(null);
+
+const handleFileChange = (e: Event) => {
+  const target = e.target as HTMLInputElement;
+  if (target.files && target.files.length > 0) {
+    file.value = target.files[0];
+  }
+};
 
 const createPost = async () => {
   try {
@@ -21,12 +30,20 @@ const createPost = async () => {
       user: userStore.userID,
       userdata: userStore.userProfileID
     };
+    
+    if (file.value) {
+      postPayload.file = file.value;
+    }
 
     const response = await $pb?.collection('posts').create(postPayload);
     if (response) {
       emit('newPostCreated');
       title.value = '';
       content.value = '';
+      file.value = null;
+      if (fileInput.value) {
+        fileInput.value.value = '';
+      }
     }
   } catch (error) {
     console.error('Error creating post:', error);
@@ -46,6 +63,10 @@ const createPost = async () => {
         <label class="block">
           <span>Content</span>
           <textarea class="mt-1 block w-full" v-model="content" required></textarea>
+        </label>
+        <label class="block">
+          <span>File (Image, etc.)</span>
+          <input type="file" ref="fileInput" @change="handleFileChange" class="mt-1 block w-full" />
         </label>
       </div>
       <button

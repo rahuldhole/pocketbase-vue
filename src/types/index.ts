@@ -17,10 +17,13 @@ export interface UserRecord {
 
 export interface Post {
   id: string;
+  collectionId?: string;
+  collectionName?: string;
   title: string;
   content: string;
   user: string;
   userdata?: string;
+  file?: string;
   created?: string;
   updated?: string;
   expand?: {
@@ -33,4 +36,5 @@ export interface PostPayload {
   content: string;
   user: string;
   userdata?: string;
+  file?: File;
 }
