@@ -12,7 +12,7 @@ const posts = ref<any[]>([]);
 // Get all the user's posts
 const getPostList = async () => {
     try {
-        const list = await $pb?.collection("posts").getFullList(200, {
+        const list = await $pb?.collection("posts").getFullList({
             expand: "user"
         });
         if (list) {
@@ -24,13 +24,13 @@ const getPostList = async () => {
 }
 
 const subscribeToAllPosts = async () => {
-    await $pb?.realtime.subscribe("posts", async function (e) {
+    await $pb?.collection("posts").subscribe("*", async function (e) {
         await getPostList();
     })
 }
 
 const unsubscribeToAllPosts = async () => {
-    await $pb?.realtime.unsubscribe("posts");
+    await $pb?.collection("posts").unsubscribe("*");
 }
 
 onMounted(async () => {

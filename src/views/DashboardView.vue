@@ -17,7 +17,7 @@ const posts = ref<any[]>([]);
 // Get all the user's posts
 const getOwnedPostList = async () => {
     try {
-        const list = await $pb?.collection("posts").getFullList(200, {
+        const list = await $pb?.collection("posts").getFullList({
             filter: `user = '${userStore.userID}'`,
             expand: "user"
         });
