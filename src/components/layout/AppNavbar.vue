@@ -16,41 +16,22 @@ const logoutUser = () => {
 </script>
 
 <template>
-  <nav class="sticky top-0 z-10 flex flex-wrap items-center justify-between bg-white py-3">
-    <div class="relative flex w-full justify-between py-1 lg:static lg:block lg:w-auto lg:justify-start">
-      <span aria-current="page" class="text-3xl font-extrabold">
-        Pocketbase & Vue
-      </span>
-      <button type="button" class="lg:hidden">
-        <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-          stroke="currentColor" class="h-8 w-8 fill-current text-black">
-          <path d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      </button>
-    </div>
-    <div class="hidden items-center text-xl font-medium lg:relative lg:flex lg:flex-grow">
-      <ul class="ml-auto flex flex-row list-none">
-        <li class="pr-5">
-          <RouterLink to="/" class="hover:underline">
-            Home
-          </RouterLink>
-        </li>
-        <li v-if="!$pb?.authStore.token" class="pr-5">
-          <RouterLink to="/auth" class="hover:underline">
-            Login
-          </RouterLink>
-        </li>
-        <li v-if="$pb?.authStore.token" class="pr-5">
-          <RouterLink to="/new-post" class="hover:underline">
-            New Post
-          </RouterLink>
-        </li>
-        <li v-if="$pb?.authStore.token" class="pr-5">
-          <button type="button" @click="logoutUser" class="cursor-pointer hover:underline">
-            Logout
-          </button>
-        </li>
-      </ul>
+  <nav class="sticky top-0 z-10 border-b border-gray-100 bg-white/80 px-4 py-4 backdrop-blur-md">
+    <div class="mx-auto flex max-w-5xl items-center justify-between">
+      <div class="flex items-center">
+        <span aria-current="page" class="text-xl font-extrabold tracking-tight text-gray-900">
+          Pocketbase & Vue
+        </span>
+      </div>
+      
+      <div class="flex items-center gap-6 text-sm font-medium text-gray-600">
+        <RouterLink to="/" class="hover:text-black transition-colors">Home</RouterLink>
+        <RouterLink v-if="!$pb?.authStore.token" to="/auth" class="hover:text-black transition-colors">Login</RouterLink>
+        <RouterLink v-if="$pb?.authStore.token" to="/new-post" class="hover:text-black transition-colors">New Post</RouterLink>
+        <button v-if="$pb?.authStore.token" type="button" @click="logoutUser" class="cursor-pointer hover:text-black transition-colors">
+          Logout
+        </button>
+      </div>
     </div>
   </nav>
 </template>

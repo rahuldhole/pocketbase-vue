@@ -4,8 +4,10 @@ import AppNavbar from '@/components/layout/AppNavbar.vue';
 </script>
 
 <template>
-  <div class="container mx-auto p-4">
+  <div class="min-h-screen bg-gray-50 text-gray-900 font-sans">
     <AppNavbar />
-    <RouterView />
+    <main class="mx-auto max-w-5xl p-4 sm:p-6 lg:p-8">
+      <RouterView />
+    </main>
   </div>
 </template>

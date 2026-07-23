@@ -28,8 +28,7 @@ You'll need a running instance of **PocketBase** for this application to connect
    - `posts` (Collection) with the following fields:
      - `title` (Plain text)
      - `content` (Plain text or Editor)
-     - `user` (Relation to `users`)
-     - `userdata` (Relation to your user profile/data collection if applicable)
+     - `user` (Relation to `users`, max select 1)
 6. **IMPORTANT:** Update the **API Rules** (click the lock icon 🔒 on the collection) so the frontend can interact with them:
    - `users`: Set the **Create** rule to blank (so anyone can register).
    - `posts`: Set the **Create** rule to `@request.auth.id != ""` (so only logged-in users can post), and unlock **List/Search** or **View** as needed.

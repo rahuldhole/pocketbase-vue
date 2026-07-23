@@ -1,20 +1,32 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
 import { useLocalStorage } from '@vueuse/core';
+import client from '@/services/pocketbase';
 
 export const useUserStore = defineStore('user', () => {
-  // State variable
-  // Using the useLocalStorage composable provided by VueUse in order to persist state during page reloads
-  const userID = ref(useLocalStorage("userID", ""));
-  const username = ref(useLocalStorage("username", ""));
-  const userProfileID = ref(useLocalStorage("userProfileID", ""));
+  // useLocalStorage already returns a ref — do NOT wrap in ref() again
+  const userID = useLocalStorage("userID", "");
+  const userEmail = useLocalStorage("userEmail", "");
+  const userName = useLocalStorage("userName", "");
 
-  // Actions
-  function clear() {
-    userID.value = "";
-    username.value = "";
-    userProfileID.value = "";
+  // Auto-sync with PocketBase authStore on init (covers page reload)
+  const record = client?.authStore?.record;
+  if (record) {
+    userID.value = record.id || '';
+    userEmail.value = record.email || '';
+    userName.value = record.name || '';
   }
 
-  return { userID, username, userProfileID, clear }
+  function setFromRecord(rec: any) {
+    userID.value = rec.id || '';
+    userEmail.value = rec.email || '';
+    userName.value = rec.name || '';
+  }
+
+  function clear() {
+    userID.value = '';
+    userEmail.value = '';
+    userName.value = '';
+  }
+
+  return { userID, userEmail, userName, setFromRecord, clear }
 })

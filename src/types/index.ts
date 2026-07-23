@@ -7,12 +7,9 @@ export const pocketBaseSymbol: InjectionKey<PocketBase> = Symbol('PBClient');
 // Data Types
 export interface UserRecord {
   id: string;
-  username: string;
   email?: string;
-  profile?: {
-    id: string;
-    username: string;
-  };
+  name?: string;
+  avatar?: string;
 }
 
 export interface Post {
@@ -21,8 +18,7 @@ export interface Post {
   collectionName?: string;
   title: string;
   content: string;
-  user: string;
-  userdata?: string;
+  user?: string;
   file?: string;
   created?: string;
   updated?: string;
@@ -34,7 +30,6 @@ export interface Post {
 export interface PostPayload {
   title: string;
   content: string;
-  user: string;
-  userdata?: string;
+  user?: string;
   file?: File;
 }

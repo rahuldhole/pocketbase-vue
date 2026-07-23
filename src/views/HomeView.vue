@@ -9,7 +9,8 @@ const posts = ref<Post[]>([]);
 const getPostList = async () => {
   try {
     const list = await $pb?.collection('posts').getFullList<Post>({
-      expand: 'user'
+      expand: 'user',
+      sort: '-created'
     });
     if (list) {
       posts.value = list;
@@ -41,11 +42,11 @@ onUnmounted(async () => {
 
 <template>
   <div>
-    <h1 class="mb-3 text-2xl font-bold">Home - Feed</h1>
-    <div v-if="posts.length" class="grid grid-cols-1 md:grid-cols-3">
-      <div v-for="post in posts" :key="post.id" class="md:col-start-2 md:col-span-1">
-        <PostCard :post-data="post" />
-      </div>
+    <div v-if="posts.length" class="mx-auto max-w-2xl space-y-6">
+      <PostCard v-for="post in posts" :key="post.id" :post-data="post" />
+    </div>
+    <div v-else class="py-12 text-center text-gray-500">
+      No posts yet. Be the first to post!
     </div>
   </div>
 </template>
